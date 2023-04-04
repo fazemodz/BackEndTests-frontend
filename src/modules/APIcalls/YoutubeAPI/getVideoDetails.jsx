@@ -16,15 +16,11 @@ export default class getVidGetVideoDetailseoDetails extends Component {
         RenderChannelData: false
     }
     GetAPIData(NewYoutubeURL) {
-
-        axios.get(`http://localhost:5000/api/v1/youtubeapi/getvideostats/${NewYoutubeURL}`)
-            //axios.get('http://localhost:5000/')
+        axios.get(`https://youtubevideosearchapi.projectredacted.org/api/v1/youtubeapi/getvideostats/${NewYoutubeURL}`)
             .then((response) => {
                 this.setState({ DataArray: response.data.items[0] });
                 this.setState({ SnippetArray: response.data.items[0].snippet })
                 this.setState({ thumbnailsArray: response.data.items[0].snippet.thumbnails.standard });
-                // console.log(response.data.items[0].snippet.thumbnails)
-                console.log('Data has been received!!');
                 this.GetChannelData();
             })
             .catch((error) => {
@@ -33,7 +29,7 @@ export default class getVidGetVideoDetailseoDetails extends Component {
     }
     GetChannelData() {
         let ChannelID = this.state.SnippetArray.channelId;
-        axios.get(`http://localhost:5000/api/v1/youtubeapi/getchannelstats/${ChannelID}`)
+        axios.get(`https://youtubevideosearchapi.projectredacted.org/api/v1/youtubeapi/getchannelstats/${ChannelID}`)
             .then((response) => {
                 this.setState({ ChannelDataArray: response.data.items[0] });
                 this.setState({ ChannelSnippetArray: response.data.items[0].snippet })
