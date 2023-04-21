@@ -15,6 +15,27 @@ export default class getVidGetVideoDetailseoDetails extends Component {
         ChannelStatisticsArray: [],
         RenderChannelData: false
     }
+    componentDidMount() {
+        let FullURl = window.location.href;
+        if(FullURl.includes("http://localhost:5173")){
+            let NewYoutubeURL = FullURl.slice(22)
+            this.GetAPIData(NewYoutubeURL)
+            if(NewYoutubeURL.length === 0){
+                this.setState({ RenderChannelData: false })
+            }else{
+                this.setState({ RenderChannelData: true })
+            }
+            
+        }else{
+            let NewYoutubeURL = FullURl.slice(55)
+            this.GetAPIData(NewYoutubeURL)
+            if(NewYoutubeURL.length === 0){
+                this.setState({ RenderChannelData: false })
+            }else{
+                this.setState({ RenderChannelData: true })
+            }
+        }
+    }
     GetAPIData(NewYoutubeURL) {
         axios.get(`https://youtubevideosearchapi.projectredacted.org/api/v1/youtubeapi/getvideostats/${NewYoutubeURL}`)
             .then((response) => {
@@ -75,6 +96,7 @@ export default class getVidGetVideoDetailseoDetails extends Component {
 
         return (
             <div>
+                <title>{this.state.SnippetArray.title}</title>
                 <Linkify properties={{ target: '_blank', }}>
                     <div className="Video-Details-Content">
                         <div className="Side-Panel-Content">
